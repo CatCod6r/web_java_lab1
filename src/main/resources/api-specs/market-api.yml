@@ -21,6 +21,29 @@ paths:
       responses:
         '200':
           description: Товар створено успішно
+  /api/products/{id}:
+    get:
+      summary: Отримати товар за ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Знайдено
+    delete:
+      summary: Видалити товар
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Видалено
 components:
   schemas:
     CreateProductRequest:

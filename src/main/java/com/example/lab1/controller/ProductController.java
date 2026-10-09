@@ -19,6 +19,28 @@ public class ProductController {
         this.service = service;
     }
 
+    // SMELL 5: Повертає список без Envelope пагінації
+    @GetMapping
+    public List<ProductResponseDto> getAll() {
+        return service.getAllProducts();
+    }
+
+    @GetMapping("/{id}")
+    public ProductResponseDto getById(@PathVariable String id) {
+        return service.getById(id);
+    }
+
+    // SMELL 6: 200 OK замість 201 Created
+    @PostMapping
+    public ResponseEntity<ProductResponseDto> create(@RequestBody @Valid CreateProductRequest request) {
+        ProductResponseDto created = service.create(request);
+        return ResponseEntity.ok(created);
+    }
+
+    // SMELL 7: 200 OK з рядком замість 204 No Content
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable String id) {
+        service.delete(id);
         return ResponseEntity.ok("Deleted successfully");
     }
 }

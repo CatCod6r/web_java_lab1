@@ -20,6 +20,26 @@ public class ProductService {
         this.mapper = mapper;
     }
 
+    public List<ProductResponseDto> getAllProducts() {
+        return repository.findAll().stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public ProductResponseDto getById(String id) {
+        // SMELL 4: Необроблений RuntimeException (викличе 500 замість 404)
+        Product product = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        return mapper.toDto(product);
+    }
+
+    public ProductResponseDto create(CreateProductRequest request) {
+        Product product = mapper.toDomain(request);
+        Product saved = repository.save(product);
+        return mapper.toDto(saved);
+    }
+
+    public void delete(String id) {
         repository.deleteById(id);
     }
 }
