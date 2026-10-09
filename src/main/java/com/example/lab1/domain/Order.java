@@ -1,14 +1,15 @@
 package com.example.lab1.domain;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Order {
     private String id;
     private String customerId;
     private List<Product> items;
-    private Double totalAmount;
+    private BigDecimal totalAmount;
 
-    public Order(String id, String customerId, List<Product> items, Double totalAmount) {
+    public Order(String id, String customerId, List<Product> items, BigDecimal totalAmount) {
         this.id = id;
         this.customerId = customerId;
         this.items = items;
@@ -18,5 +19,5 @@ public class Order {
     public String getId() { return id; }
     public String getCustomerId() { return customerId; }
     public List<Product> getItems() { return items; }
-    public Double getTotalAmount() { return totalAmount; }
+    public BigDecimal getTotalAmount() { return totalAmount; }
 }
