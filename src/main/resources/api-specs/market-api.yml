@@ -47,6 +47,92 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetail'
 
+  /api/products/{id}:
+    get:
+      summary: Отримати товар за ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Товар знайдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+        '404':
+          description: Товар не знайдено
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetail'
+    delete:
+      summary: Видалити товар
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Товар успішно видалено
+        '404':
+          description: Товар не знайдено
+
+components:
+  schemas:
+    CreateProductRequest:
+      type: object
+      required:
+        - name
+        - price
+        - category
+      properties:
+        name:
+          type: string
+          example: "Super Comet Yarn"
+        price:
+          type: number
+          example: 49.99
+        description:
+          type: string
+          example: "Zero gravity toy"
+        category:
+          type: string
+          example: "Toys"
+
+    ProductResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        category:
+          type: string
+
+    PagedProductResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductResponse'
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+
     ProblemDetail:
       type: object
       properties:
