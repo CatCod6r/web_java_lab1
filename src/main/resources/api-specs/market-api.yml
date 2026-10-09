@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: Cosmo Cats Intergalactic Marketplace API
+  description: Контракт маркетплейсу космічних товарів
+  version: 1.0.0
+paths:
+  /api/products:
+    get:
+      summary: Отримати всі товари
+      responses:
+        '200':
+          description: Список товарів
+    post:
+      summary: Створити товар
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '200':
+          description: Товар створено успішно
+components:
+  schemas:
+    CreateProductRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        category:
+          type: string
