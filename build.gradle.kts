@@ -29,6 +29,18 @@ dependencies {
 	testAnnotationProcessor("org.projectlombok:lombok")
 }
 
+extra["minimumCoveragePerFile"] = 0.8
+extra["filesExcludedFromCoverage"] = listOf(
+	"**/*Application.*",
+	"**/domain/**",
+	"**/dto/**",
+	"**/config/**",
+	"**/exception/**"
+)
+
+apply(from = "gradle/test.gradle")
+apply(from = "gradle/jacoco.gradle")
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
